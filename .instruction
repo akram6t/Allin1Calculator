@@ -1,0 +1,53 @@
+               Project Details
+
+Project Title: Allin1Calculator
+
+Project Overview:
+The "Allin1Calculator" project is designed to offer a multi-functional, web-based platform that provides users with a wide variety of calculators. This all-in-one calculator website will include tools for basic arithmetic, scientific computations, financial estimations, and common unit conversions. The aim is to develop an accessible, clean, and responsive user interface that caters to students, professionals, and the general public.
+
+Technology Stack:
+Frontend: React.js (with Context API or Redux)
+Backend: Node.js + Express.js
+Database: MongoDB (optional, only for storing user preferences or history)
+Authentication: Optional (only if personalization is added)
+Other Tools:
+Chart.js (for visualizing financial calculations)
+Math.js (for scientific computations)
+Bootstrap/Tailwind CSS (for UI)
+Note: If your team is not familiar with any specific technology (e.g., MongoDB), you are free to use alternatives like Firebase or local storage. Make sure performance remains optimal. Avoid using paid tools, APIs, or SDKs that require subscription/license keys. If any feature needs a payment gateway or paid access, skip that part.
+
+
+
+
+Core Modules & Calculators:
+1. Basic Calculator
+Addition, Subtraction, Multiplication, Division
+Keyboard input support
+2. Scientific Calculator
+Trigonometric, logarithmic, exponential functions
+Constants (π, e), parentheses handling, factorials
+3. Financial Calculators
+Loan EMI Calculator
+SIP (Systematic Investment Plan) Calculator
+Tax Calculator (Simplified)
+4. Conversion Tools
+Length (meter, feet, inch)
+Weight (kg, pound)
+Temperature (Celsius, Fahrenheit)
+Currency converter (static rates or skip if API required)
+5. BMI Calculator
+User inputs weight and height, returns BMI and category
+
+Frontend Pages Required:
+Home Page (showcase all calculators)
+Individual Calculator Pages
+About Page (optional)
+Contact Page (optional)
+Navigation Header/Footer
+
+
+
+Backend (If applicable):
+Optional user login system
+Store user history (only if needed)
+Serve calculator logic via APIs (for extensibility)

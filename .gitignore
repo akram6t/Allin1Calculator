@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+node_modules/
+=======
+# Node.js
+node_modules/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+
+# Logs and temp files
+*.log
+*.DS_Store
+*.local
+*.cache
+*.tmp
+>>>>>>> accfa69ba462e94e0347e7de29130a8fd6a7eaba
+node_modules

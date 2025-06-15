@@ -1,6 +1,71 @@
 import React, { useState, useRef, useEffect } from "react";
+// Keyboard input support
+// Map keyboard keys to button actions
+const KEY_MAP = {
+  "0": { type: "number", label: "0" },
+  "1": { type: "number", label: "1" },
+  "2": { type: "number", label: "2" },
+  "3": { type: "number", label: "3" },
+  "4": { type: "number", label: "4" },
+  "5": { type: "number", label: "5" },
+  "6": { type: "number", label: "6" },
+  "7": { type: "number", label: "7" },
+  "8": { type: "number", label: "8" },
+  "9": { type: "number", label: "9" },
+  ".": { type: "decimal", label: "." },
+  "+": { type: "operator", value: "+" , label: "+"},
+  "-": { type: "operator", value: "-", label: "-" },
+  "*": { type: "operator", value: "*", label: "×" },
+  "/": { type: "operator", value: "/", label: "÷" },
+  "^": { type: "operator", value: "^", label: "^" },
+  "%": { type: "operator", value: "%", label: "%" },
+  "(": { type: "bracket", value: "(", label: "(" },
+  ")": { type: "bracket", value: ")", label: ")" },
+  "Enter": { type: "equals", label: "=" },
+  "=": { type: "equals", label: "=" },
+  "Backspace": { type: "backspace", label: "⌫" },
+  "Delete": { type: "clear", label: "C" },
+  "c": { type: "clear", label: "C" },
+  "C": { type: "clear", label: "C" },
+  "s": { type: "func", value: "sin", label: "sin" },
+  "S": { type: "func", value: "sin", label: "sin" },
+  "o": { type: "func", value: "cos", label: "cos" },
+  "O": { type: "func", value: "cos", label: "cos" },
+  "t": { type: "func", value: "tan", label: "tan" },
+  "T": { type: "func", value: "tan", label: "tan" },
+  "l": { type: "log", value: "ln", label: "ln" },
+  "L": { type: "log", value: "ln", label: "ln" },
+  "g": { type: "log", value: "log", label: "log" },
+  "G": { type: "log", value: "log", label: "log" },
+  "p": { type: "const", value: "pi", label: "π" },
+  "P": { type: "const", value: "pi", label: "π" },
+  "e": { type: "const", value: "e", label: "e" },
+  "E": { type: "const", value: "e", label: "e" },
+  "d": { type: "toggleDeg", label: "DEG" },
+  "D": { type: "toggleDeg", label: "DEG" },
+  "m": { type: "memory", value: "recall", label: "MR" },
+  "M": { type: "memory", value: "recall", label: "MR" },
+  "r": { type: "memory", value: "recall", label: "MR" },
+  "R": { type: "memory", value: "recall", label: "MR" },
+};
+
 import { create, all } from "mathjs";
 import "../index.css";
+// Custom hook for keyboard support
+function useCalculatorKeyboard(onButton) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const btn = KEY_MAP[e.key];
+      if (btn) {
+        e.preventDefault();
+        onButton(btn);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onButton]);
+}
+
 // Math.js configuration
 const config = {
   number: "BigNumber", // Use BigNumber for precision
@@ -253,6 +318,8 @@ export default function ScientificCalculator() {
         break;
     }
   };
+
+  useCalculatorKeyboard(handleButton);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded shadow">

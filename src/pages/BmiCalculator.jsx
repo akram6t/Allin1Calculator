@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Scale, Info } from 'lucide-react';
 
+
 const BmiCalculator = () => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
@@ -93,6 +94,7 @@ const BmiCalculator = () => {
         <h1 className="text-3xl font-display font-bold text-center mb-6">BMI Calculator</h1>
         
         <div className="calculator-container">
+          
           {/* Unit toggle */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex rounded-md shadow-sm">

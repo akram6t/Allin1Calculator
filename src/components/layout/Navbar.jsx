@@ -73,17 +73,20 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   };
 
   return (
-    <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-      <div className="flex items-center justify-between">
+   <nav className="w-full bg-white shadow-md">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link 
           to="/" 
-          className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 transition keyboard-focus"
+          className="flex items-center space-x-2 text-primary-600 hover:text-black transition keyboard-focus"
           onClick={() => setMobileMenuOpen(false)}
         >
           <Calculator size={28} />
           <span className="text-xl font-display font-bold">Allin1Calculator</span>
         </Link>
+         
+         
+        
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center lg:space-x-8">
@@ -104,6 +107,8 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           >
             Scientific
           </NavLink>
+
+          
           
           {/* Financial Dropdown */}
           <div className="relative">
@@ -117,7 +122,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
               <span>Financial</span>
               <ChevronDown 
                 size={16} 
-                className={`transition duration-200 ${dropdownOpen.financial ? 'rotate-180 text-primary-600' : ''}`} 
+                className={`transition duration-200 ${dropdownOpen.financial ? 'rotate-180  hover:text-blue-400  text-primary-600' : ''}`} 
               />
             </button>
             
@@ -133,7 +138,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/loan"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   Loan EMI Calculator
@@ -141,7 +146,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/sip"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   SIP Calculator
@@ -149,7 +154,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/tax"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   Tax Calculator
@@ -186,7 +191,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/length"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   Length Converter
@@ -194,7 +199,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/weight"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   Weight Converter
@@ -202,7 +207,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/temperature"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   Temperature Converter
@@ -210,7 +215,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 <NavLink
                   to="/currency"
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:bg-gray-50'}`
+                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
                   }
                 >
                   Currency Converter

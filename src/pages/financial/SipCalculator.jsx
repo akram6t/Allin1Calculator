@@ -262,46 +262,48 @@ const SipCalculator = () => {
               transition={{ duration: 0.3 }}
               className="mt-8"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="bg-blue-50 p-4 rounded-lg text-center">
-                  <DollarSign
-                    size={20}
-                    className="text-blue-600 mx-auto mb-1"
-                  />
-                  <p className="text-xs text-gray-500 uppercase">
-                    Amount Invested
-                  </p>
-                  <div className="overflow-x-auto max-w-full">
-                    <p className="text-2xl font-bold whitespace-nowrap w-max">
-                      {formatCurrency(totalInvestment)}
-                    </p>
-                  </div>
-                </div>
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
-                <div className="bg-green-50 p-4 rounded-lg text-center">
-                  <TrendingUp
-                    size={20}
-                    className="text-green-600 mx-auto mb-1"
-                  />
-                  <p className="text-xs text-gray-500 uppercase">
-                    Estimated Returns
-                  </p>
-                  <div className="overflow-x-auto max-w-full">
-                    <p className="text-2xl font-bold whitespace-nowrap w-max">
-                      {formatCurrency(estimatedReturns)}
-                    </p>
-                  </div>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg text-center">
-                  <Coins size={20} className="text-purple-600 mx-auto mb-1" />
-                  <p className="text-xs text-gray-500 uppercase">Total Value</p>
-                  <div className="overflow-x-auto max-w-full">
-                    <p className="text-2xl font-bold whitespace-nowrap w-max">
-                      {formatCurrency(totalValue)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+  {/* Amount Invested */}
+  <div className="bg-blue-50 p-3 rounded-lg text-center">
+    <DollarSign size={18} className="text-blue-600 mx-auto mb-1" />
+    <p className="text-xs text-gray-500 uppercase">Amount Invested</p>
+    <div className="overflow-x-auto max-w-full">
+      <div className="flex justify-center w-full">
+        <p className="text-xl font-bold whitespace-nowrap w-max">
+          {formatCurrency(totalInvestment)}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Estimated Returns */}
+  <div className="bg-green-50 p-3 rounded-lg text-center">
+    <TrendingUp size={18} className="text-green-600 mx-auto mb-1" />
+    <p className="text-xs text-gray-500 uppercase">Estimated Returns</p>
+    <div className="overflow-x-auto max-w-full">
+      <div className="flex justify-center w-full">
+        <p className="text-xl font-bold whitespace-nowrap w-max">
+          {formatCurrency(estimatedReturns)}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Total Value */}
+  <div className="bg-purple-50 p-3 rounded-lg text-center">
+    <Coins size={18} className="text-purple-600 mx-auto mb-1" />
+    <p className="text-xs text-gray-500 uppercase">Total Value</p>
+    <div className="overflow-x-auto max-w-full">
+      <div className="flex justify-center w-full">
+        <p className="text-xl font-bold whitespace-nowrap w-max">
+          {formatCurrency(totalValue)}
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="bg-white p-4 rounded-lg shadow-sm">

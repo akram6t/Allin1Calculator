@@ -456,7 +456,7 @@ const TaxCalculator = () => {
             <div>
               <h3 className="text-lg font-medium mb-2">How to Use</h3>
               <ol className="space-y-2 text-gray-700 list-decimal list-inside">
-                <li>Enter your annual gross income (before taxes)</li>
+                <li>Enter your annual gross income (Before Taxes)</li>
                 <li>Select your filing status from the dropdown</li>
                 <li>
                   Click "Calculate Taxes" to see your estimated tax breakdown

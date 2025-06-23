@@ -312,46 +312,49 @@ const LoanCalculator = () => {
               className="mt-8"
             >
               
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-  {/* Monthly Payment (scrollable individually) */}
-  <div className="overflow-x-auto">
-    <div className="min-w-[250px] bg-primary-50 p-4 rounded-lg text-center">
-      <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
-        <Wallet size={20} className="text-primary-600" />
-      </div>
-      <p className="text-xs text-gray-500 uppercase">Monthly Payment</p>
-      <p className="text-2xl font-bold text-gray-800">
+<div className="flex gap-4 flex-wrap justify-center">
+
+  {/* Monthly Payment */}
+  <div className="w-[180px] bg-primary-50 p-4 rounded-lg text-center">
+    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
+      <Wallet size={20} className="text-primary-600" />
+    </div>
+    <p className="text-xs text-gray-500 uppercase">Monthly Payment</p>
+    <div className="overflow-x-auto max-w-full">
+      <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
         {formatCurrency(monthlyPayment)}
       </p>
     </div>
   </div>
 
-  {/* Total Payment (scrollable individually) */}
-  <div className="overflow-x-auto">
-    <div className="min-w-[250px] bg-yellow-100 p-4 rounded-lg text-center">
-      <div className="w-10 h-10 bg-yellow-300 rounded-full flex items-center justify-center mx-auto mb-2">
-        <PiggyBank size={20} className="text-pink-600" />
-      </div>
-      <p className="text-xs text-gray-500 uppercase">Total Payment</p>
-      <p className="text-2xl font-bold text-gray-800">
+  {/* Total Payment */}
+  <div className="w-[180px] bg-yellow-100 p-4 rounded-lg text-center">
+    <div className="w-10 h-10 bg-yellow-300 rounded-full flex items-center justify-center mx-auto mb-2">
+      <PiggyBank size={20} className="text-pink-600" />
+    </div>
+    <p className="text-xs text-gray-500 uppercase">Total Payment</p>
+    <div className="overflow-x-auto max-w-full">
+      <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
         {formatCurrency(totalPayment)}
       </p>
     </div>
   </div>
 
-  {/* Total Interest (scrollable individually) */}
-  <div className="overflow-x-auto">
-    <div className="min-w-[250px] bg-red-50 p-4 rounded-lg text-center">
-      <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
-        <Info size={20} className="text-red-600" />
-      </div>
-      <p className="text-xs text-gray-500 uppercase">Total Interest</p>
-      <p className="text-2xl font-bold text-gray-800">
+  {/* Total Interest */}
+  <div className="w-[180px] bg-red-50 p-4 rounded-lg text-center">
+    <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
+      <Info size={20} className="text-red-600" />
+    </div>
+    <p className="text-xs text-gray-500 uppercase">Total Interest</p>
+    <div className="overflow-x-auto max-w-full">
+      <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
         {formatCurrency(totalInterest)}
       </p>
     </div>
   </div>
+
 </div>
+
 
 
 

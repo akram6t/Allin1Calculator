@@ -292,7 +292,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
               Scientific Calculator
             </NavLink>
 
-            {/* Financial Calculators Section */}
+            {/* Financial Calculator Section */}
             <div className="py-1">
               <button
                 type="button"

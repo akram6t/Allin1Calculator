@@ -73,7 +73,7 @@ const Footer = () => {
               About
             </h3>
             <p className=" text-black mb-4">
-              Allin1Calculator is a comprehensive web-based calculator platform offering a wide range of tools for various calculations and conversions.
+              Allin1Calculator is a comprehensive web-based Calculator platform offering a wide range of tools for various calculations and conversions.
             </p>
             <div className="flex space-x-4">
               <motion.a 

@@ -51,7 +51,7 @@ const BmiCalculator = () => {
     }
   };
 
-  // Get color based on BMI category
+  // Get color based on BMI Category
   const getBmiColor = () => {
     switch (bmiCategory) {
       case 'Underweight':

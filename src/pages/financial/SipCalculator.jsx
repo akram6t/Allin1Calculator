@@ -30,7 +30,7 @@ const SipCalculator = () => {
   const [monthlyInvestment, setMonthlyInvestment] = useState("");
   const [annualReturn, setAnnualReturn] = useState("");
   const [timePeriod, setTimePeriod] = useState("");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("INR");
   const [totalInvestment, setTotalInvestment] = useState(null);
   const [estimatedReturns, setEstimatedReturns] = useState(null);
   const [totalValue, setTotalValue] = useState(null);
@@ -241,7 +241,7 @@ const SipCalculator = () => {
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="input-field"
+                className="input-field bg-white"
               >
                 <option value="USD">USD ($)</option>
                 <option value="INR">INR (₹)</option>

@@ -34,7 +34,7 @@ const LoanCalculator = () => {
   const [showAmortization, setShowAmortization] = useState(false);
   const [amortizationSchedule, setAmortizationSchedule] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
-  const [currency, setCurrency] = useState("USD"); // ✅ Currency state
+  const [currency, setCurrency] = useState("INR"); // ✅ Currency state
 
   // Calculate loan details when inputs change
   useEffect(() => {
@@ -169,12 +169,12 @@ const LoanCalculator = () => {
     };
   };
 
-   // Currency exchange rates (relative to USD)
+  // Currency exchange rates (relative to USD)
   const currencyRates = {
-  USD: 0.012, // 1 INR = 0.012 USD (approx)
-  INR: 1,     // Base currency is INR
-  EUR: 0.011  // 1 INR = 0.011 EUR (approx)
-};
+    USD: 0.012, // 1 INR = 0.012 USD (approx)
+    INR: 1,     // Base currency is INR
+    EUR: 0.011  // 1 INR = 0.011 EUR (approx)
+  };
 
   // Format currency
   const formatCurrency = (value) => {
@@ -210,7 +210,7 @@ const LoanCalculator = () => {
           Loan EMI Calculator
         </h1>
         <p className="text-sm text-gray-600 text-center mt-2">
-           All calculations are based on <span className="font-semibold text-primary-600">INR (Indian Rupee)</span> as the base currency.
+          All calculations are based on <span className="font-semibold text-primary-600">INR (Indian Rupee)</span> as the base currency.
         </p>
 
         <div className="calculator-container max-w-2xl">
@@ -279,7 +279,7 @@ const LoanCalculator = () => {
               />
             </div>
 
-             {/* ✅ Currency Dropdown */}
+            {/* ✅ Currency Dropdown */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Select Currency
@@ -287,7 +287,7 @@ const LoanCalculator = () => {
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="input-field"
+                className="input-field bg-white"
               >
                 <option value="USD">USD ($)</option>
                 <option value="INR">INR (₹)</option>
@@ -295,7 +295,7 @@ const LoanCalculator = () => {
               </select>
             </div>
 
-            
+
             <div className="flex items-end">
               <button onClick={handleReset} className="btn btn-outline w-full">
                 Reset
@@ -311,49 +311,49 @@ const LoanCalculator = () => {
               transition={{ duration: 0.3 }}
               className="mt-8"
             >
-              
-<div className="flex gap-4 flex-wrap justify-center">
 
-  {/* Monthly Payment */}
-  <div className="w-[180px] bg-primary-50 p-4 rounded-lg text-center">
-    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
-      <Wallet size={20} className="text-primary-600" />
-    </div>
-    <p className="text-xs text-gray-500 uppercase">Monthly Payment</p>
-    <div className="overflow-x-auto max-w-full">
-      <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
-        {formatCurrency(monthlyPayment)}
-      </p>
-    </div>
-  </div>
+              <div className="flex gap-4 flex-wrap justify-center">
 
-  {/* Total Payment */}
-  <div className="w-[180px] bg-yellow-100 p-4 rounded-lg text-center">
-    <div className="w-10 h-10 bg-yellow-300 rounded-full flex items-center justify-center mx-auto mb-2">
-      <PiggyBank size={20} className="text-pink-600" />
-    </div>
-    <p className="text-xs text-gray-500 uppercase">Total Payment</p>
-    <div className="overflow-x-auto max-w-full">
-      <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
-        {formatCurrency(totalPayment)}
-      </p>
-    </div>
-  </div>
+                {/* Monthly Payment */}
+                <div className="w-[180px] bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <Wallet size={20} className="text-primary-600" />
+                  </div>
+                  <p className="text-xs text-gray-500 uppercase">Monthly Payment</p>
+                  <div className="overflow-x-auto max-w-full">
+                    <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                      {formatCurrency(monthlyPayment)}
+                    </p>
+                  </div>
+                </div>
 
-  {/* Total Interest */}
-  <div className="w-[180px] bg-red-50 p-4 rounded-lg text-center">
-    <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
-      <Info size={20} className="text-red-600" />
-    </div>
-    <p className="text-xs text-gray-500 uppercase">Total Interest</p>
-    <div className="overflow-x-auto max-w-full">
-      <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
-        {formatCurrency(totalInterest)}
-      </p>
-    </div>
-  </div>
+                {/* Total Payment */}
+                <div className="w-[180px] bg-yellow-100 p-4 rounded-lg text-center">
+                  <div className="w-10 h-10 bg-yellow-300 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <PiggyBank size={20} className="text-pink-600" />
+                  </div>
+                  <p className="text-xs text-gray-500 uppercase">Total Payment</p>
+                  <div className="overflow-x-auto max-w-full">
+                    <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                      {formatCurrency(totalPayment)}
+                    </p>
+                  </div>
+                </div>
 
-</div>
+                {/* Total Interest */}
+                <div className="w-[180px] bg-red-50 p-4 rounded-lg text-center">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <Info size={20} className="text-red-600" />
+                  </div>
+                  <p className="text-xs text-gray-500 uppercase">Total Interest</p>
+                  <div className="overflow-x-auto max-w-full">
+                    <p className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                      {formatCurrency(totalInterest)}
+                    </p>
+                  </div>
+                </div>
+
+              </div>
 
 
 
@@ -406,7 +406,7 @@ const LoanCalculator = () => {
                             stacked: false,
                             ticks: {
                               callback: function (value) {
-                                return "$" + value.toFixed(0);
+                                return getCurrencySymbol(currency) + value.toFixed(0);
                               },
                             },
                           },

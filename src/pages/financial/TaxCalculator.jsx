@@ -39,7 +39,7 @@ const TaxCalculator = () => {
     ],
   };
 
-  const [currency, setCurrency] = useState("USD"); // Add currency selector
+  const [currency, setCurrency] = useState("INR"); // Add currency selector
 
   const currencyRates = {
     USD: 0.012,

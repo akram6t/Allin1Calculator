@@ -3,6 +3,69 @@ import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, ChevronDown, BarChart3, RotateCw } from 'lucide-react';
 
+const menuItems = [
+  {
+    path: '/basic',
+    label: 'Basic',
+    mobileLabel: 'Basic Calculator',
+    icon: null
+  },
+  {
+    path: '/scientific',
+    label: 'Scientific',
+    mobileLabel: 'Scientific Calculator',
+    icon: null
+  },
+  {
+    label: 'Financial',
+    mobileLabel: 'Financial Calculators',
+    icon: BarChart3,
+    subItems: [
+      {
+        path: '/loan',
+        label: 'Loan EMI Calculator'
+      },
+      {
+        path: '/sip',
+        label: 'SIP Calculator'
+      },
+      {
+        path: '/tax',
+        label: 'Tax Calculator'
+      }
+    ]
+  },
+  {
+    label: 'Converters',
+    mobileLabel: 'Converters',
+    icon: RotateCw,
+    subItems: [
+      {
+        path: '/length',
+        label: 'Length Converter'
+      },
+      {
+        path: '/weight',
+        label: 'Weight Converter'
+      },
+      {
+        path: '/temperature',
+        label: 'Temperature Converter'
+      },
+      {
+        path: '/currency',
+        label: 'Currency Converter'
+      }
+    ]
+  },
+  {
+    path: '/bmi',
+    label: 'BMI Calculator',
+    mobileLabel: 'BMI Calculator',
+    icon: null
+  }
+];
+
 const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState({
     financial: false,
@@ -26,19 +89,14 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
 
   // Toggle dropdown state
   const toggleDropdown = (dropdown, e) => {
-    // Prevent event from bubbling up to parent elements
-    if (e) {
-      e.stopPropagation();
-    }
+    if (e) e.stopPropagation();
     
-    // On mobile, don't close other dropdowns
     if (window.innerWidth < 1024) {
       setDropdownOpen({
         ...dropdownOpen,
         [dropdown]: !dropdownOpen[dropdown]
       });
     } else {
-      // On desktop, close other dropdowns
       const newState = {
         financial: false,
         converters: false
@@ -48,33 +106,168 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
     }
   };
 
+
+
   // Mobile menu animation variants
   const mobileMenuVariants = {
     closed: {
       x: '100%',
-      opacity: 0,
       transition: {
         type: 'spring',
-        stiffness: 300,
-        damping: 30,
+        ease: 'easeInOut',
         duration: 0.3
       }
     },
     open: {
       x: 0,
-      opacity: 1,
       transition: {
         type: 'spring',
-        stiffness: 300,
-        damping: 30,
-        duration: 0.3
+        ease: 'easeInOut',
+        duration: 0.3,
+        when: "beforeChildren",
+        staggerChildren: 0.05
       }
     }
   };
 
+  // Render desktop menu items
+  const renderDesktopMenuItems = () => {
+    return menuItems.map((item, index) => {
+      if (item.path) {
+        return (
+          <NavLink 
+            key={index}
+            to={item.path} 
+            className={({ isActive }) => 
+              `font-medium hover:text-primary-600 transition keyboard-focus ${isActive ? 'text-primary-600' : 'text-gray-700'}`
+            }
+          >
+            {item.label}
+          </NavLink>
+        );
+      } else if (item.subItems) {
+        const dropdownKey = item.label.toLowerCase();
+        return (
+          <div key={index} className="relative">
+            <button
+              type="button"
+              className="group flex items-center space-x-1 font-medium text-gray-700 hover:text-primary-600 transition keyboard-focus"
+              onClick={(e) => toggleDropdown(dropdownKey, e)}
+              aria-expanded={dropdownOpen[dropdownKey]}
+              aria-haspopup="true"
+            >
+              <span>{item.label}</span>
+              <ChevronDown 
+                size={16} 
+                className={`transition duration-200 ${dropdownOpen[dropdownKey] ? 'rotate-180 hover:text-blue-400 text-primary-600' : ''}`} 
+              />
+            </button>
+            
+            {dropdownOpen[dropdownKey] && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute left-0 z-10 mt-2 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5"
+                onMouseLeave={() => setDropdownOpen({...dropdownOpen, [dropdownKey]: false})}
+              >
+                {item.subItems.map((subItem, subIndex) => (
+                  <NavLink
+                    key={subIndex}
+                    to={subItem.path}
+                    className={({ isActive }) =>
+                      `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
+                    }
+                  >
+                    {subItem.label}
+                  </NavLink>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        );
+      }
+      return null;
+    });
+  };
+
+  // Render mobile menu items
+  const renderMobileMenuItems = () => {
+    return menuItems.map((item, index) => {
+      if (item.path) {
+        return (
+          <NavLink
+            key={index}
+            to={item.path}
+            className={({ isActive }) =>
+              `block py-2 px-3 rounded-md ${
+                isActive
+                  ? 'bg-primary-50 text-primary-700'
+                  : 'text-gray-700 hover:bg-gray-50'
+              }`
+            }
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {item.mobileLabel}
+          </NavLink>
+        );
+      } else if (item.subItems) {
+        const dropdownKey = item.label.toLowerCase();
+        return (
+          <div key={index} className="py-1">
+            <button
+              type="button"
+              className="flex items-center justify-between w-full py-2 px-3 text-left text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
+              onClick={(e) => toggleDropdown(dropdownKey, e)}
+            >
+              <span className="flex items-center">
+                {item.icon && <item.icon size={18} className="mr-2" />}
+                <span>{item.mobileLabel}</span>
+              </span>
+              <ChevronDown
+                size={16}
+                className={`transition duration-200 ${
+                  dropdownOpen[dropdownKey] ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {dropdownOpen[dropdownKey] && (
+              <motion.div 
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="pl-8 mt-1 space-y-1"
+              >
+                {item.subItems.map((subItem, subIndex) => (
+                  <NavLink
+                    key={subIndex}
+                    to={subItem.path}
+                    className={({ isActive }) =>
+                      `block py-2 px-3 rounded-md ${
+                        isActive
+                          ? 'bg-primary-50 text-primary-700'
+                          : 'text-gray-600 hover:bg-gray-50'
+                      }`
+                    }
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {subItem.label}
+                  </NavLink>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        );
+      }
+      return null;
+    });
+  };
+
   return (
-   <nav className="w-full bg-white shadow-md">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <nav className="w-full bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link 
           to="/" 
@@ -84,154 +277,10 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           <Calculator size={28} />
           <span className="text-xl font-display font-bold">Allin1Calculator</span>
         </Link>
-         
-         
         
-
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center lg:space-x-8">
-          <NavLink 
-            to="/basic" 
-            className={({ isActive }) => 
-              `font-medium hover:text-primary-600 transition keyboard-focus ${isActive ? 'text-primary-600' : 'text-gray-700'}`
-            }
-          >
-            Basic
-          </NavLink>
-          
-          <NavLink 
-            to="/scientific" 
-            className={({ isActive }) => 
-              `font-medium hover:text-primary-600 transition keyboard-focus ${isActive ? 'text-primary-600' : 'text-gray-700'}`
-            }
-          >
-            Scientific
-          </NavLink>
-
-          
-          
-          {/* Financial Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              className="group flex items-center space-x-1 font-medium text-gray-700 hover:text-primary-600 transition keyboard-focus"
-              onClick={(e) => toggleDropdown('financial', e)}
-              aria-expanded={dropdownOpen.financial}
-              aria-haspopup="true"
-            >
-              <span>Financial</span>
-              <ChevronDown 
-                size={16} 
-                className={`transition duration-200 ${dropdownOpen.financial ? 'rotate-180  hover:text-blue-400  text-primary-600' : ''}`} 
-              />
-            </button>
-            
-            {dropdownOpen.financial && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="absolute left-0 z-10 mt-2 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5"
-                onMouseLeave={() => setDropdownOpen({...dropdownOpen, financial: false})}
-              >
-                <NavLink
-                  to="/loan"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  Loan EMI Calculator
-                </NavLink>
-                <NavLink
-                  to="/sip"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  SIP Calculator
-                </NavLink>
-                <NavLink
-                  to="/tax"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  Tax Calculator
-                </NavLink>
-              </motion.div>
-            )}
-          </div>
-          
-          {/* Converters Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              className="group flex items-center space-x-1 font-medium text-gray-700 hover:text-primary-600 transition keyboard-focus"
-              onClick={(e) => toggleDropdown('converters', e)}
-              aria-expanded={dropdownOpen.converters}
-              aria-haspopup="true"
-            >
-              <span>Converters</span>
-              <ChevronDown 
-                size={16} 
-                className={`transition duration-200 ${dropdownOpen.converters ? 'rotate-180 text-primary-600' : ''}`} 
-              />
-            </button>
-            
-            {dropdownOpen.converters && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="absolute left-0 z-10 mt-2 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5"
-                onMouseLeave={() => setDropdownOpen({...dropdownOpen, converters: false})}
-              >
-                <NavLink
-                  to="/length"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  Length Converter
-                </NavLink>
-                <NavLink
-                  to="/weight"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  Weight Converter
-                </NavLink>
-                <NavLink
-                  to="/temperature"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  Temperature Converter
-                </NavLink>
-                <NavLink
-                  to="/currency"
-                  className={({ isActive }) =>
-                    `block px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-primary-600' : 'text-gray-700 hover:text-blue-500'}`
-                  }
-                >
-                  Currency Converter
-                </NavLink>
-              </motion.div>
-            )}
-          </div>
-          
-          <NavLink 
-            to="/bmi" 
-            className={({ isActive }) => 
-              `font-medium hover:text-primary-600 transition keyboard-focus ${isActive ? 'text-primary-600' : 'text-gray-700'}`
-            }
-          >
-            BMI Calculator
-          </NavLink>
+          {renderDesktopMenuItems()}
         </div>
       </div>
 
@@ -246,218 +295,27 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
             animate={mobileMenuOpen ? "open" : "closed"}
             exit="closed"
           >
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-8">
-            <Link
-              to="/"
-              className="flex items-center space-x-2 text-primary-600"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <Calculator size={24} />
-              <span className="text-lg font-display font-bold">Allin1Calculator</span>
-            </Link>
-          </div>
-
-          <motion.div 
-            className="space-y-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.3 }}
-          >
-            <NavLink
-              to="/basic"
-              className={({ isActive }) =>
-                `block py-2 px-3 rounded-md ${
-                  isActive
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`
-              }
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Basic Calculator
-            </NavLink>
-            
-            <NavLink
-              to="/scientific"
-              className={({ isActive }) =>
-                `block py-2 px-3 rounded-md ${
-                  isActive
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`
-              }
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Scientific Calculator
-            </NavLink>
-
-            {/* Financial Calculator Section */}
-            <div className="py-1">
-              <button
-                type="button"
-                className="flex items-center justify-between w-full py-2 px-3 text-left text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
-                onClick={(e) => toggleDropdown('financial', e)}
-              >
-                <span className="flex items-center">
-                  <BarChart3 size={18} className="mr-2" />
-                  <span>Financial Calculators</span>
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={`transition duration-200 ${
-                    dropdownOpen.financial ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-
-              {dropdownOpen.financial && (
-                <motion.div 
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className="pl-8 mt-1 space-y-1"
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-8">
+                <Link
+                  to="/"
+                  className="flex items-center space-x-2 text-primary-600"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  <NavLink
-                    to="/loan"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Loan EMI Calculator
-                  </NavLink>
-                  <NavLink
-                    to="/sip"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    SIP Calculator
-                  </NavLink>
-                  <NavLink
-                    to="/tax"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Tax Calculator
-                  </NavLink>
-                </motion.div>
-              )}
-            </div>
+                  <Calculator size={24} />
+                  <span className="text-lg font-display font-bold">Allin1Calculator</span>
+                </Link>
+              </div>
 
-            {/* Converters Section */}
-            <div className="py-1">
-              <button
-                type="button"
-                className="flex items-center justify-between w-full py-2 px-3 text-left text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
-                onClick={(e) => toggleDropdown('converters', e)}
+              <motion.div 
+                className="space-y-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
               >
-                <span className="flex items-center">
-                  <RotateCw size={18} className="mr-2" />
-                  <span>Converters</span>
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={`transition duration-200 ${
-                    dropdownOpen.converters ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-
-              {dropdownOpen.converters && (
-                <motion.div 
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className="pl-8 mt-1 space-y-1"
-                >
-                  <NavLink
-                    to="/length"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Length Converter
-                  </NavLink>
-                  <NavLink
-                    to="/weight"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Weight Converter
-                  </NavLink>
-                  <NavLink
-                    to="/temperature"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Temperature Converter
-                  </NavLink>
-                  <NavLink
-                    to="/currency"
-                    className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Currency Converter
-                  </NavLink>
-                </motion.div>
-              )}
+                {renderMobileMenuItems()}
+              </motion.div>
             </div>
-
-            <NavLink
-              to="/bmi"
-              className={({ isActive }) =>
-                `block py-2 px-3 rounded-md ${
-                  isActive
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`
-              }
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              BMI Calculator
-            </NavLink>
-          </motion.div>
-        </div>
           </motion.div>
         )}
       </AnimatePresence>

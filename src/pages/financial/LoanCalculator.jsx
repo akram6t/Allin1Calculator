@@ -287,7 +287,7 @@ const LoanCalculator = () => {
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="input-field bg-white"
+                className="input-field"
               >
                 <option value="USD">USD ($)</option>
                 <option value="INR">INR (₹)</option>

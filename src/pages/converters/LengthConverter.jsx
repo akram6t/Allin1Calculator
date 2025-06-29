@@ -195,7 +195,7 @@ const LengthConverter = () => {
             <div className="flex justify-center">
               <button
                 onClick={handleReset}
-                className="btn btn-outline"
+                className="btn btn-outline flex items-center"
               >
                 <RotateCcw size={16} className="mr-2" />
                 Reset

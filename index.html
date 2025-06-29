@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/calculator-icon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="All-in-one calculator web app with basic, scientific, financial calculators and conversion tools" />
-    <title>Allin1Calculator - Your Ultimate Calculator Toolkit</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/calculator-icon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="All-in-one calculator web app with basic, scientific, financial calculators and conversion tools" />
+  <title>Allin1Calculator - Your Ultimate Calculator Toolkit</title>
+</head>
+
+<body class="bg-gray-50 dark:bg-neutral-950">
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- default theme apply -->
+
+  <script>
+    const theme = localStorage.getItem('theme');
+     const root = window.document.documentElement
+        if (theme === 'dark') {
+            root.classList.add('dark')
+            document.body.classList.add("dark_theme");
+        } else {
+            root.classList.remove('dark')
+            document.body.classList.remove("dark_theme");
+        }
+        // localStorage.setItem('theme', theme)
+  </script>
+</body>
+
 </html>

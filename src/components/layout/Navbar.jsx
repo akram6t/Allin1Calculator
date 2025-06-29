@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, ChevronDown, BarChart3, RotateCw } from 'lucide-react';
+import ThemeToggle from '../../lib/ThemeToggle';
 
 const menuItems = [
   {
@@ -71,7 +72,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
     financial: false,
     converters: false
   });
-  
+
   // Handle keyboard navigation for dropdowns
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -82,7 +83,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
         });
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
@@ -90,7 +91,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   // Toggle dropdown state
   const toggleDropdown = (dropdown, e) => {
     if (e) e.stopPropagation();
-    
+
     if (window.innerWidth < 1024) {
       setDropdownOpen({
         ...dropdownOpen,
@@ -135,10 +136,10 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
     return menuItems.map((item, index) => {
       if (item.path) {
         return (
-          <NavLink 
+          <NavLink
             key={index}
-            to={item.path} 
-            className={({ isActive }) => 
+            to={item.path}
+            className={({ isActive }) =>
               `font-medium hover:text-primary-600 transition keyboard-focus ${isActive ? 'text-primary-600' : 'text-gray-700'}`
             }
           >
@@ -157,12 +158,12 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
               aria-haspopup="true"
             >
               <span>{item.label}</span>
-              <ChevronDown 
-                size={16} 
-                className={`transition duration-200 ${dropdownOpen[dropdownKey] ? 'rotate-180 hover:text-blue-400 text-primary-600' : ''}`} 
+              <ChevronDown
+                size={16}
+                className={`transition duration-200 ${dropdownOpen[dropdownKey] ? 'rotate-180 hover:text-blue-400 text-primary-600' : ''}`}
               />
             </button>
-            
+
             {dropdownOpen[dropdownKey] && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -170,7 +171,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
                 className="absolute left-0 z-10 mt-2 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5"
-                onMouseLeave={() => setDropdownOpen({...dropdownOpen, [dropdownKey]: false})}
+                onMouseLeave={() => setDropdownOpen({ ...dropdownOpen, [dropdownKey]: false })}
               >
                 {item.subItems.map((subItem, subIndex) => (
                   <NavLink
@@ -201,10 +202,9 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
             key={index}
             to={item.path}
             className={({ isActive }) =>
-              `block py-2 px-3 rounded-md ${
-                isActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-gray-700 hover:bg-gray-50'
+              `block py-2 px-3 rounded-md ${isActive
+                ? 'bg-primary-50 text-primary-700'
+                : 'text-gray-700 hover:bg-gray-50'
               }`
             }
             onClick={() => setMobileMenuOpen(false)}
@@ -227,14 +227,13 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
               </span>
               <ChevronDown
                 size={16}
-                className={`transition duration-200 ${
-                  dropdownOpen[dropdownKey] ? 'rotate-180' : ''
-                }`}
+                className={`transition duration-200 ${dropdownOpen[dropdownKey] ? 'rotate-180' : ''
+                  }`}
               />
             </button>
 
             {dropdownOpen[dropdownKey] && (
-              <motion.div 
+              <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 transition={{ duration: 0.2 }}
@@ -245,10 +244,9 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                     key={subIndex}
                     to={subItem.path}
                     className={({ isActive }) =>
-                      `block py-2 px-3 rounded-md ${
-                        isActive
-                          ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-600 hover:bg-gray-50'
+                      `block py-2 px-3 rounded-md ${isActive
+                        ? 'bg-primary-50 text-primary-700'
+                        : 'text-gray-600 hover:bg-gray-50'
                       }`
                     }
                     onClick={() => setMobileMenuOpen(false)}
@@ -269,56 +267,62 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
     <nav className="w-full bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="flex items-center space-x-2 text-primary-600 hover:text-black transition keyboard-focus"
           onClick={() => setMobileMenuOpen(false)}
         >
           <Calculator size={28} />
           <span className="text-xl font-display font-bold">Allin1Calculator</span>
         </Link>
-        
+
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center lg:space-x-8">
           {renderDesktopMenuItems()}
         </div>
+
+        {/* Theme Toggle button */}
+        <ThemeToggle />
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            className="mobile-menu lg:hidden"
-            variants={mobileMenuVariants}
-            initial="closed"
-            animate={mobileMenuOpen ? "open" : "closed"}
-            exit="closed"
-          >
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-8">
-                <Link
-                  to="/"
-                  className="flex items-center space-x-2 text-primary-600"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Calculator size={24} />
-                  <span className="text-lg font-display font-bold">Allin1Calculator</span>
-                </Link>
-              </div>
 
-              <motion.div 
-                className="space-y-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
-              >
-                {renderMobileMenuItems()}
-              </motion.div>
-            </div>
+      <div
+        className={`fixed inset-0 h-screen transition-opacity bg-black dark:bg-gray-100 opacity-50 lg:hidden ${mobileMenuOpen ? "block" : "hidden"}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+      <div
+        className={`fixed h-screen mobile-menu inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-in-out transform lg:hidden ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-8">
+            <Link
+              to="/"
+              className="flex items-center space-x-2 text-primary-600"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Calculator size={24} />
+              <span className="text-lg font-display font-bold">Allin1Calculator</span>
+            </Link>
+          </div>
+
+          <motion.div
+            className="space-y-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.3 }}
+          >
+            {renderMobileMenuItems()}
+
           </motion.div>
-        )}
-      </AnimatePresence>
+
+          {/* theme toggle button */}
+          <div className='absolute bottom-3 right-3'>
+            <ThemeToggle />
+          </div>
+
+        </div>
+      </div>
     </nav>
   );
 };

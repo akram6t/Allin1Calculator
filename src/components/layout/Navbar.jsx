@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, ChevronDown, BarChart3, RotateCw } from 'lucide-react';
 import ThemeToggle from '../../lib/ThemeToggle';
+import { Menu } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const menuItems = [
   {
@@ -282,17 +284,33 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
         </div>
 
         {/* Theme Toggle button */}
-        <ThemeToggle />
+        <div className='hidden lg:block'>
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          className="mobile-menu-button z-50 p-2 rounded-md bg-white shadow-md lg:hidden keyboard-focus active:scale-95 transition-transform"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          onTouchStart={(e) => e.stopPropagation()}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+        >
+          <span className="sr-only">{mobileMenuOpen ? 'Close menu' : 'Open menu'}</span>
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
       </div>
 
       {/* Mobile Menu */}
-
       <div
         className={`fixed inset-0 h-screen transition-opacity bg-black dark:bg-gray-100 opacity-50 lg:hidden ${mobileMenuOpen ? "block" : "hidden"}`}
         onClick={() => setMobileMenuOpen(false)}
       />
       <div
-        className={`fixed h-screen mobile-menu inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-in-out transform lg:hidden ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed h-screen mobile-menu inset-y-0 left-0 z-30 w-72 overflow-y-auto transition duration-300 ease-in-out transform lg:hidden ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="p-6">
           <div className="flex items-center justify-between mb-8">

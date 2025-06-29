@@ -81,7 +81,7 @@ const Layout = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile menu button */}
+      {/* Mobile menu button
       <button
         type="button"
         className="mobile-menu-button fixed top-4 right-4 z-50 p-2 rounded-md bg-white shadow-md lg:hidden keyboard-focus active:scale-95 transition-transform"
@@ -93,7 +93,7 @@ const Layout = () => {
       >
         <span className="sr-only">{mobileMenuOpen ? 'Close menu' : 'Open menu'}</span>
         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+      </button> */}
 
       {/* Header */}
       <header className="sticky top-0 z-20 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">

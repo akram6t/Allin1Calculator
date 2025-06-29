@@ -312,7 +312,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
       <div
         className={`fixed h-screen mobile-menu inset-y-0 left-0 z-30 w-72 overflow-y-auto transition duration-300 ease-in-out transform lg:hidden ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="p-6">
+        <div className="p-6 relative h-full">
           <div className="flex items-center justify-between mb-8">
             <Link
               to="/"
@@ -335,11 +335,12 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           </motion.div>
 
           {/* theme toggle button */}
-          <div className='absolute bottom-15 right-3'>
+          <div className='absolute bottom-28 right-5'>
             <ThemeToggle />
           </div>
 
         </div>
+
       </div>
     </nav>
   );

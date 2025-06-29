@@ -314,7 +314,7 @@ const Home = () => {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md :grid-cols-3 gap-8">
           <motion.div
             className="text-center"
             initial={{ opacity: 0, y: 20 }}

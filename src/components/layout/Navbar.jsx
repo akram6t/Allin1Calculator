@@ -335,7 +335,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           </motion.div>
 
           {/* theme toggle button */}
-          <div className='absolute bottom-3 right-3'>
+          <div className='absolute bottom-8 right-3'>
             <ThemeToggle />
           </div>
 

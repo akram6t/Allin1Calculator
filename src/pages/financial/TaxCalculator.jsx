@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Calculator, DollarSign, ArrowRight, Info } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 const TaxCalculator = () => {
   const [income, setIncome] = useState("");
@@ -224,9 +225,13 @@ const TaxCalculator = () => {
             <button onClick={calculateTaxes} className="btn btn-primary">
               Calculate Taxes
             </button>
-            <button onClick={handleReset} className="btn btn-outline">
-              Reset
-            </button>
+            <button
+                onClick={handleReset}
+                className="btn btn-outline flex items-center"
+              >
+                <RotateCcw size={16} className="mr-2" />
+                Reset
+              </button>
           </div>
 
           {/* Results */}

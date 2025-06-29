@@ -12,6 +12,7 @@ import {
   Title,
 } from "chart.js";
 import { Pie, Bar } from "react-chartjs-2";
+import { RotateCcw } from "lucide-react";
 
 // Register Chart.js components
 ChartJS.register(
@@ -297,7 +298,11 @@ const LoanCalculator = () => {
 
 
             <div className="flex items-end">
-              <button onClick={handleReset} className="btn btn-outline w-full">
+              <button
+                onClick={handleReset}
+                className="btn btn-outline flex items-center"
+              >
+                <RotateCcw size={16} className="mr-2" />
                 Reset
               </button>
             </div>

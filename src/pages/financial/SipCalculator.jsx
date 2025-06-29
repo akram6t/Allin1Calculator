@@ -13,6 +13,7 @@ import {
   Title,
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
+import { RotateCcw } from "lucide-react";
 
 // Register chart components
 ChartJS.register(
@@ -249,7 +250,11 @@ const SipCalculator = () => {
               </select>
             </div>
             <div className="flex items-end">
-              <button onClick={handleReset} className="btn btn-outline w-full">
+            <button
+                onClick={handleReset}
+                className="btn btn-outline flex items-center"
+              >
+                <RotateCcw size={16} className="mr-2" />
                 Reset
               </button>
             </div>

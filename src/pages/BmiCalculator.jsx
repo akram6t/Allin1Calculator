@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Scale, Info } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 
 
 const BmiCalculator = () => {
@@ -20,7 +21,7 @@ const BmiCalculator = () => {
   const calculateBMI = () => {
     if (height && weight) {
       let bmiValue;
-      
+
       if (unit === 'metric') {
         // Metric formula: weight (kg) / [height (m)]^2
         const heightInMeters = parseFloat(height) / 100;
@@ -29,7 +30,7 @@ const BmiCalculator = () => {
         // Imperial formula: (weight (lbs) * 703) / [height (inches)]^2
         bmiValue = (parseFloat(weight) * 703) / (parseFloat(height) * parseFloat(height));
       }
-      
+
       setBmi(bmiValue.toFixed(1));
       setBmiCategory(getBmiCategory(bmiValue));
     } else {
@@ -92,30 +93,28 @@ const BmiCalculator = () => {
         transition={{ duration: 0.3 }}
       >
         <h1 className="text-3xl font-display font-bold text-center mb-6">BMI Calculator</h1>
-        
+
         <div className="calculator-container">
-          
+
           {/* Unit toggle */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex rounded-md shadow-sm">
               <button
                 type="button"
-                className={`px-4 py-2 text-sm font-medium rounded-l-lg keyboard-focus ${
-                  unit === 'metric'
+                className={`px-4 py-2 text-sm font-medium rounded-l-lg keyboard-focus ${unit === 'metric'
                     ? 'bg-primary-600 text-white'
                     : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
+                  }`}
                 onClick={() => setUnit('metric')}
               >
                 Metric (cm/kg)
               </button>
               <button
                 type="button"
-                className={`px-4 py-2 text-sm font-medium rounded-r-lg keyboard-focus ${
-                  unit === 'imperial'
+                className={`px-4 py-2 text-sm font-medium rounded-r-lg keyboard-focus ${unit === 'imperial'
                     ? 'bg-primary-600 text-white'
                     : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
+                  }`}
                 onClick={() => setUnit('imperial')}
               >
                 Imperial (in/lbs)
@@ -153,12 +152,13 @@ const BmiCalculator = () => {
                 className="input-field"
               />
             </div>
-            
+
             <div className="flex space-x-4 pt-2">
               <button
                 onClick={handleReset}
-                className="btn btn-outline flex-1"
+                className="btn btn-outline flex items-center"
               >
+                <RotateCcw size={16} className="mr-2" />
                 Reset
               </button>
               <button
@@ -185,14 +185,14 @@ const BmiCalculator = () => {
               <p className={`text-lg font-medium ${getBmiColor()}`}>
                 {bmiCategory}
               </p>
-              
+
               <div className="mt-6">
                 <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className="h-full transition-all duration-500 ease-in-out"
                     style={{
                       width: `${Math.min(100, (bmi / 40) * 100)}%`,
-                      backgroundColor: bmi < 18.5 
+                      backgroundColor: bmi < 18.5
                         ? '#3B82F6' // blue
                         : bmi < 24.9
                           ? '#10B981' // green
@@ -215,7 +215,7 @@ const BmiCalculator = () => {
 
           {/* Info button */}
           <div className="mt-4 text-center">
-            <button 
+            <button
               onClick={() => setShowInfo(!showInfo)}
               className="text-primary-600 text-sm flex items-center mx-auto"
             >
@@ -223,10 +223,10 @@ const BmiCalculator = () => {
               {showInfo ? 'Hide' : 'Show'} BMI Information
             </button>
           </div>
-          
+
           {/* BMI information */}
           {showInfo && (
-            <motion.div 
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               transition={{ duration: 0.3 }}
@@ -239,14 +239,14 @@ const BmiCalculator = () => {
                 <li><span className="inline-block w-32 text-yellow-500 font-medium">Overweight:</span> 25 - 29.9</li>
                 <li><span className="inline-block w-32 text-red-500 font-medium">Obesity:</span> 30 or greater</li>
               </ul>
-              
+
               <p className="mt-3">
                 BMI is a screening tool, but it does not diagnose body fatness or health. A healthcare provider can help you interpret your results.
               </p>
             </motion.div>
           )}
         </div>
-        
+
         {/* User Guide Section */}
         <div className="guide-section mt-12">
           <h2 className="text-xl font-semibold mb-4">BMI Calculator Guide</h2>

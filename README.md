@@ -100,7 +100,7 @@ allin1calculator/
 
 ## 📄 License
 
-This project is licensed under the MIT license - see the LICENSE file for details.
+This project is licensed under the MIT license - see the License file for details.
 
 ## 🙏 Acknowledgements
 
